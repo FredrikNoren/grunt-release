@@ -20,7 +20,8 @@ module.exports = function(grunt){
       tag: true,
       push: true,
       pushTags: true,
-      npm : true
+      npm : true,
+      npmOptions: null
     });
 
     var tagName = grunt.config.getRaw('release.options.tagName') || '<%= version %>';
@@ -77,6 +78,7 @@ module.exports = function(grunt){
     function publish(config){
       var cmd = 'npm publish';
       var msg = 'published '+ config.newVersion +' to npm';
+      if (options.npmOptions) { cmd += ' ' + options.npmOptions; }
       var npmtag = getNpmTag();
       if (npmtag){ 
         cmd += ' --tag ' + npmtag;
